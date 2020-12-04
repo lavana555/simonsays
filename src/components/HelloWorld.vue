@@ -4,7 +4,21 @@
       <div>
         <h1>Simon Says</h1>
       </div>
-      <h2>{{ message }}</h2>
+      <div class="valertMesaage">
+        <v-alert
+            v-if="message==='win'"
+            type="success"
+        >
+          {{ message }}
+        </v-alert>
+        <v-alert
+            v-if="message==='wrong'"
+            type="warning"
+        >
+          {{ message }}
+        </v-alert>
+      </div>
+
       <div class="title">
 
         <h2 id="level" class="level">Уровень: {{ level }}</h2>
@@ -41,10 +55,48 @@
       </div>
 
     </div>
-    <button class="btn" @click="getStarted">GET STARTED</button>
+
     <!--    <button class="btn" @click="getElements">GET ELEMENTS</button>-->
-    <button class="btn" @click="secondRound" v-if="message==='win'">SECOUND ROUND</button>
-    <button class="btn" @click="tryAgain" v-if="message==='wrong'">TRY AGAIN</button>
+
+
+    <template>
+      <v-app id="inspire">
+        <v-row
+            justify="space-around"
+        >
+          <v-btn color="primary"
+                 @click="getStarted"
+          >
+            GET STARTED
+          </v-btn>
+          <v-btn color="warning"
+                 v-if="message==='win'"
+                 @click="secondRound"
+          >
+            SECOND ROUND
+          </v-btn>
+          <v-btn color="error"
+                 v-if="message==='wrong'"
+                 @click="tryAgain"
+          >
+            TRY AGAIN
+          </v-btn>
+        </v-row>
+        <!--        <v-expansion-panels>-->
+        <!--          <v-expansion-panel-->
+        <!--              v-for="(item,i) in 5"-->
+        <!--              :key="i"-->
+        <!--          >-->
+        <!--            <v-expansion-panel-header>-->
+        <!--              Item-->
+        <!--            </v-expansion-panel-header>-->
+        <!--            <v-expansion-panel-content>-->
+        <!--              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.-->
+        <!--            </v-expansion-panel-content>-->
+        <!--          </v-expansion-panel>-->
+        <!--        </v-expansion-panels>-->
+      </v-app>
+    </template>
   </div>
 
 </template>
@@ -74,17 +126,11 @@ export default {
   methods: {
     flash(event) {
       // eslint-disable-next-line no-debugger
-//  debugger
-      //console.log(event)
-      //console.log(event.target.tagName)
+
       alert(event.srcElement.id)
-//  alert('yo')
-      // eslint-disable-next-line no-debugger
-      //debugger
+
       this.flashing = true
       setTimeout(() => {
-        // eslint-disable-next-line no-debugger
-
         this.flashing = false
       }, 100)
     },
@@ -95,23 +141,13 @@ export default {
       setTimeout(() => {
         this.message = (JSON.stringify(this.levels[this.level].selectedElements) == JSON.stringify(this.selectedElement) ? 'win' : 'wrong')
       }, 2000)
-      // console.log(this.selectedElement)
     },
     getStarted() {
       let level = this.level
-      // this.isFetchingVerde=true
-      // setTimeout(()=>{
-      //   // eslint-disable-next-line no-debugger
-      //
-      //   this.isFetchingVerde=false
-      // },500)
-
       switch (level) {
         case 0: {
           this.isFetchingVerde = true
           setTimeout(() => {
-            // eslint-disable-next-line no-debugger
-
             this.isFetchingVerde = false
           }, 500)
           break
@@ -119,10 +155,9 @@ export default {
         case 1: {
           this.isFetchingVerde = true
           setTimeout(() => {
-            // eslint-disable-next-line no-debugger
+
             this.isFetchingGameboard = true
             setTimeout(() => {
-              // eslint-disable-next-line no-debugger
 
               this.isFetchingGameboard = false
             }, 1000)
@@ -134,10 +169,10 @@ export default {
         case 2: {
           this.isFetchingVerde = true
           setTimeout(() => {
-            // eslint-disable-next-line no-debugger
+
             this.isFetchingGameboard = true
             setTimeout(() => {
-              // eslint-disable-next-line no-debugger
+
               this.isFetchingVerde = true
               setTimeout(() => {
                 this.isFetchingVerde = false
@@ -235,8 +270,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.valertMesaage {
+  display: flex;
+  justify-content: center;
+  padding: 15px 19px;
+
+}
+
 .btn {
+  margin: 0 auto;
   margin-top: 50px;
+  justify-content: center;
 }
 
 body {
